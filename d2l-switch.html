@@ -143,14 +143,14 @@
 				track: '_ontrack'
 			},
 
-			attached: function () {
+			attached: function() {
 				this.noink = true;
-				Polymer.RenderStatus.afterNextRender(this, function () {
+				Polymer.RenderStatus.afterNextRender(this, function() {
 					Polymer.Gestures.setTouchAction(this, 'pan-y');
 				});
 			},
 
-			_ontrack: function (event) {
+			_ontrack: function(event) {
 				var track = event.detail;
 				if (track.state === 'start') {
 					this._trackStart(track);
@@ -161,13 +161,13 @@
 				}
 			},
 
-			_trackStart: function (track) {
+			_trackStart: function() {
 				this._width = this.$.toggleBar.offsetWidth / 2;
 				this._trackChecked = this.checked;
 				this.$.toggleButton.classList.add('dragging');
 			},
 
-			_trackMove: function (track) {
+			_trackMove: function(track) {
 				var dx = track.dx;
 				this._x = Math.min(this._width,
 					Math.max(0, this._trackChecked ? this._width + dx : dx));
@@ -175,7 +175,7 @@
 				this._userActivate(this._x > (this._width / 2));
 			},
 
-			_trackEnd: function (track) {
+			_trackEnd: function() {
 				this.$.toggleButton.classList.remove('dragging');
 				this.transform('', this.$.toggleButton);
 			}
