@@ -1,0 +1,185 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../d2l-colors/d2l-colors.html">
+<link rel="import" href="../d2l-icons/d2l-icon.html">
+<link rel="import" href="../d2l-icons/tier1-icons.html">
+<link rel="import" href="../paper-behaviors/paper-checked-element-behavior.html">
+
+<dom-module id="d2l-switch">
+	<template strip-whitespace>
+		<style>
+			:host {
+				display: inline-block;
+			}
+
+			 :host([disabled]) {
+				pointer-events: none;
+			}
+
+			 :host(:focus) {
+				outline: none;
+			}
+
+			.toggle-bar {
+				position: absolute;
+				height: 100%;
+				width: 60px;
+				border-radius: 9px;
+				pointer-events: none;
+				transition: background-color linear .1s;
+				background-color: var(--d2l-color-pressicus);
+				box-shadow: inset 0 3px 0 0 rgba(0, 0, 0, 0.1);
+				border: 1px solid var(--d2l-color-pressicus);
+			}
+
+			:host([checked]) .toggle-bar {
+				border: 1px solid var(--d2l-color-titanius);
+			}
+
+			.toggle-button {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 28px;
+				width: 30px;
+				border-radius: 8px;
+				box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.6);
+				transition: transform linear .08s, background-color linear .08s;
+				will-change: transform;
+				background-color: var(--d2l-color-gypsum);
+				box-shadow: inset 0 3px 0 0 rgba(0, 0, 0, 0.1);
+				border: solid 1px var(--d2l-color-pressicus);
+			}
+
+			.toggle-button.dragging {
+				-webkit-transition: none;
+				transition: none;
+			}
+
+			 :host([checked]) .toggle-bar {
+				opacity: 1.0;
+				background-color: var(--d2l-color-white);
+			}
+
+			 :host([checked]) .toggle-button {
+				-webkit-transform: translate(30px, 0);
+				transform: translate(30px, 0);
+			}
+
+			.toggle-container {
+				display: inline-block;
+				position: relative;
+				width: 60px;
+				height: 28px;
+				margin: 4px 1px;
+				cursor: pointer;
+			}
+
+			.toggle-label {
+				position: relative;
+				display: inline-block;
+				vertical-align: middle;
+				padding-left: 8px;
+				pointer-events: none;
+			}
+
+			.check {
+				position: absolute;
+				color: var(--d2l-color-olivine);
+				top: 5px;
+				left: 5px;
+				width: 22px;
+				height: 22px;
+			}
+
+			.container {
+				display: flex;
+				align-items: center;
+			}
+
+			.toggle-label {
+				font-size: 16px;
+				margin-right: 10px;
+				color: var(--d2l-color-ferrite);
+				font-weight: normal;
+			}
+
+			:host([checked]) .toggle-label {
+				color: var(--d2l-color-olivine);
+				font-weight: bold;
+			}
+		</style>
+
+		<div class="container">
+			<div class="toggle-label">
+				<slot></slot>
+			</div>
+			<div class="toggle-container">
+				<div id="toggleBar" class="toggle-bar"></div>
+				<d2l-icon class="check" icon="d2l-tier1:check"></d2l-icon>
+				<div id="toggleButton" class="toggle-button"></div>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		Polymer({
+			is: 'd2l-switch',
+
+			behaviors: [
+				Polymer.IronButtonState,
+				Polymer.IronControlState,
+				Polymer.PaperRippleBehavior,
+				Polymer.IronCheckedElementBehavior,
+				Polymer.PaperCheckedElementBehaviorImpl
+			],
+
+			hostAttributes: {
+				role: 'button',
+				'aria-pressed': 'false',
+				tabindex: 0
+			},
+
+			listeners: {
+				track: '_ontrack'
+			},
+
+			attached: function () {
+				this.noink = true;
+				Polymer.RenderStatus.afterNextRender(this, function () {
+					Polymer.Gestures.setTouchAction(this, 'pan-y');
+				});
+			},
+
+			_ontrack: function (event) {
+				var track = event.detail;
+				if (track.state === 'start') {
+					this._trackStart(track);
+				} else if (track.state === 'track') {
+					this._trackMove(track);
+				} else if (track.state === 'end') {
+					this._trackEnd(track);
+				}
+			},
+
+			_trackStart: function (track) {
+				this._width = this.$.toggleBar.offsetWidth / 2;
+				this._trackChecked = this.checked;
+				this.$.toggleButton.classList.add('dragging');
+			},
+
+			_trackMove: function (track) {
+				var dx = track.dx;
+				this._x = Math.min(this._width,
+					Math.max(0, this._trackChecked ? this._width + dx : dx));
+				this.translate3d(this._x + 'px', 0, 0, this.$.toggleButton);
+				this._userActivate(this._x > (this._width / 2));
+			},
+
+			_trackEnd: function (track) {
+				this.$.toggleButton.classList.remove('dragging');
+				this.transform('', this.$.toggleButton);
+			}
+		});
+
+	</script>
+</dom-module>
