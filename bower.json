@@ -18,6 +18,7 @@
     "polymer": "Polymer/polymer#^1.0.0"
   },
   "resolutions": {
-    "webcomponentsjs": "^0.7"
+    "webcomponentsjs": "^0.7",
+    "d2l-colors": "^3.1.2"
   }
 }
