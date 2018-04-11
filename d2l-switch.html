@@ -4,11 +4,15 @@
 <link rel="import" href="../d2l-icons/tier1-icons.html">
 <link rel="import" href="../paper-behaviors/paper-checked-element-behavior.html">
 
+<!--
+	@demo demo/index.html
+-->
 <dom-module id="d2l-switch">
 	<template strip-whitespace>
 		<style>
 			:host {
 				display: inline-block;
+				position: relative;
 			}
 
 			:host([disabled]) {
@@ -133,28 +137,26 @@
 			is: 'd2l-switch',
 
 			behaviors: [
-				Polymer.IronButtonState,
-				Polymer.IronControlState,
-				Polymer.PaperRippleBehavior,
-				Polymer.IronCheckedElementBehavior,
-				Polymer.PaperCheckedElementBehaviorImpl
+				Polymer.PaperCheckedElementBehavior
 			],
 
-			hostAttributes: {
-				role: 'button',
-				'aria-pressed': 'false',
-				tabindex: 0
-			},
-
-			listeners: {
-				track: '_ontrack'
+			ready: function() {
+				this._boundOnTrack = this._ontrack.bind(this);
+				this.setAttribute('role', 'button');
+				this.setAttribute('aria-pressed', 'false');
+				this.setAttribute('tabindex', 0);
 			},
 
 			attached: function() {
+				this.addEventListener('track', this._boundOnTrack);
 				this.noink = true;
 				Polymer.RenderStatus.afterNextRender(this, function() {
 					Polymer.Gestures.setTouchAction(this, 'pan-y');
 				});
+			},
+
+			detached: function() {
+				this.removeEventListener('track', this._boundOnTrack);
 			},
 
 			_ontrack: function(event) {
