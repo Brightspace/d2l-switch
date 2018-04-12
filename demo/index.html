@@ -3,9 +3,11 @@
   <head>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../../d2l-typography/d2l-typography.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../d2l-switch.html">
 		<custom-style include="d2l-typography">
-			<style is="custom-style" include="d2l-typography"></style>
+			<style is="custom-style" include="d2l-typography demo-pages-shared-styles"></style>
 		</custom-style>
     <script>
       /*
@@ -15,6 +17,10 @@
     </script>
   </head>
   <body class="d2l-typography">
-		<d2l-switch checked>Toggle</d2l-switch>
+		<demo-snippet>
+			<template>
+				<d2l-switch checked>Toggle</d2l-switch>
+			</template>
+		</demo-snipper>
 	</body>
 </html>
