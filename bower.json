@@ -18,6 +18,10 @@
         "d2l-typography": "^5.3.0",
         "paper-behaviors": "^1.0.13",
         "polymer": "^1.11.3"
+      },
+      "resolutions": {
+        "polymer": "^1.11.3",
+        "webcomponentsjs": "^0.7.24",
       }
     }
   },
@@ -31,5 +35,9 @@
   "devDependencies": {
     "iron-component-page": "^3.0.1",
     "iron-demo-helpers": "^2.1.0"
+  },
+  "resolutions": {
+    "polymer": "^2.6.0",
+    "webcomponentsjs": "^1.1.1"
   }
 }
