@@ -150,7 +150,7 @@
 			attached: function() {
 				this.addEventListener('track', this._boundOnTrack);
 				this.noink = true;
-				Polymer.RenderStatus.afterNextRender(this, function() {
+				Polymer.RenderStatus.afterNextRender(this, /* @this */ function() {
 					Polymer.Gestures.setTouchAction(this, 'pan-y');
 				});
 			},
