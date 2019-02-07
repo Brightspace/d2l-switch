@@ -3,7 +3,9 @@
   "version": "0.0.2",
   "description": "Polymer switch",
   "scripts": {
-    "lint": "eslint *.html && polymer lint",
+    "lint": "npm run lint:html && npm run lint:wc",
+    "lint:html": "eslint *.html",
+    "lint:wc": "polymer lint",
     "postinstall": "polymer install --variants",
     "start": "polymer serve",
     "test": "npm run lint"
