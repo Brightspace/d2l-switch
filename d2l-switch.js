@@ -1,14 +1,24 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../d2l-colors/d2l-colors.html">
-<link rel="import" href="../d2l-icons/d2l-icon.html">
-<link rel="import" href="../d2l-icons/tier1-icons.html">
-<link rel="import" href="../paper-behaviors/paper-checked-element-behavior.html">
-
-<!--
+/**
 	@demo demo/index.html
--->
-<dom-module id="d2l-switch">
-	<template strip-whitespace>
+*/
+/*
+  FIXME(polymer-modulizer): the above comments were extracted
+  from HTML and may be out of place here. Review them and
+  then delete this comment!
+*/
+import '@polymer/polymer/polymer-legacy.js';
+
+import 'd2l-colors/d2l-colors.js';
+import 'd2l-icons/d2l-icon.js';
+import 'd2l-icons/tier1-icons.js';
+import { PaperCheckedElementBehavior } from '@polymer/paper-behaviors/paper-checked-element-behavior.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import { setTouchAction } from '@polymer/polymer/lib/utils/gestures.js';
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<dom-module id="d2l-switch">
+	<template strip-whitespace="">
 		<style>
 			:host {
 				display: inline-block;
@@ -132,63 +142,63 @@
 		</div>
 	</template>
 
-	<script>
-		Polymer({
-			is: 'd2l-switch',
+	
+</dom-module>`;
 
-			behaviors: [
-				Polymer.PaperCheckedElementBehavior
-			],
+document.head.appendChild($_documentContainer.content);
+Polymer({
+	is: 'd2l-switch',
 
-			ready: function() {
-				this._boundOnTrack = this._ontrack.bind(this);
-				this.setAttribute('role', 'button');
-				this.setAttribute('aria-pressed', 'false');
-				this.setAttribute('tabindex', 0);
-			},
+	behaviors: [
+		PaperCheckedElementBehavior
+	],
 
-			attached: function() {
-				this.addEventListener('track', this._boundOnTrack);
-				this.noink = true;
-				Polymer.RenderStatus.afterNextRender(this, /* @this */ function() {
-					Polymer.Gestures.setTouchAction(this, 'pan-y');
-				});
-			},
+	ready: function() {
+		this._boundOnTrack = this._ontrack.bind(this);
+		this.setAttribute('role', 'button');
+		this.setAttribute('aria-pressed', 'false');
+		this.setAttribute('tabindex', 0);
+	},
 
-			detached: function() {
-				this.removeEventListener('track', this._boundOnTrack);
-			},
-
-			_ontrack: function(event) {
-				var track = event.detail;
-				if (track.state === 'start') {
-					this._trackStart(track);
-				} else if (track.state === 'track') {
-					this._trackMove(track);
-				} else if (track.state === 'end') {
-					this._trackEnd(track);
-				}
-			},
-
-			_trackStart: function() {
-				this._width = this.$.toggleBar.offsetWidth / 2;
-				this._trackChecked = this.checked;
-				this.$.toggleButton.classList.add('dragging');
-			},
-
-			_trackMove: function(track) {
-				var dx = track.dx;
-				this._x = Math.min(this._width,
-					Math.max(0, this._trackChecked ? this._width + dx : dx));
-				this.translate3d(this._x + 'px', 0, 0, this.$.toggleButton);
-				this._userActivate(this._x > (this._width / 2));
-			},
-
-			_trackEnd: function() {
-				this.$.toggleButton.classList.remove('dragging');
-				this.transform('', this.$.toggleButton);
-			}
+	attached: function() {
+		this.addEventListener('track', this._boundOnTrack);
+		this.noink = true;
+		afterNextRender(this, /* @this */ function() {
+			setTouchAction(this, 'pan-y');
 		});
+	},
 
-	</script>
-</dom-module>
+	detached: function() {
+		this.removeEventListener('track', this._boundOnTrack);
+	},
+
+	_ontrack: function(event) {
+		var track = event.detail;
+		if (track.state === 'start') {
+			this._trackStart(track);
+		} else if (track.state === 'track') {
+			this._trackMove(track);
+		} else if (track.state === 'end') {
+			this._trackEnd(track);
+		}
+	},
+
+	_trackStart: function() {
+		this._width = this.$.toggleBar.offsetWidth / 2;
+		this._trackChecked = this.checked;
+		this.$.toggleButton.classList.add('dragging');
+	},
+
+	_trackMove: function(track) {
+		var dx = track.dx;
+		this._x = Math.min(this._width,
+			Math.max(0, this._trackChecked ? this._width + dx : dx));
+		this.translate3d(this._x + 'px', 0, 0, this.$.toggleButton);
+		this._userActivate(this._x > (this._width / 2));
+	},
+
+	_trackEnd: function() {
+		this.$.toggleButton.classList.remove('dragging');
+		this.transform('', this.$.toggleButton);
+	}
+});
