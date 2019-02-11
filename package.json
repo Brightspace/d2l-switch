@@ -3,7 +3,9 @@
   "version": "0.0.2",
   "description": "Polymer switch",
   "scripts": {
-    "lint": "eslint *.html && polymer lint",
+    "lint": "npm run lint:html && npm run lint:wc",
+    "lint:html": "eslint *.html",
+    "lint:wc": "polymer lint",
     "postinstall": "polymer install --variants",
     "start": "polymer serve",
     "test": "npm run lint"
@@ -15,9 +17,9 @@
   "author": "D2L",
   "license": "UNLICENSED",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-brightspace": "^0.2.4",
-    "eslint-plugin-html": "^1.7.0",
+    "eslint": "^4.15.0",
+    "eslint-config-brightspace": "^0.4.1",
+    "eslint-plugin-html": "^4.0.1",
     "polymer-cli": "^1.6.0"
   }
 }
