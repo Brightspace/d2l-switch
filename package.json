@@ -6,7 +6,7 @@
   },
   "homepage": "https://github.com/Brightspace/d2l-switch",
   "name": "@d2l/switch",
-  "version": "0.0.2",
+  "version": "3.0.0",
   "scripts": {
     "lint": "npm run lint:wc && npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
