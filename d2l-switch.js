@@ -103,9 +103,20 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				pointer-events: none;
 			}
 
-			:host([label-right]) .toggle-label {
+			:host([label-right]) .toggle-label,
+			:host(:dir(rtl)) .toggle-label {
 				padding-left: 0;
 				padding-right: 8px;
+			}
+
+			:host(:dir(rtl)):host([label-right]) .toggle-label {
+				padding-left: 8px;
+				padding-right: 0;
+			}
+
+			:host(:dir(rtl))[label-right] .toggle-label {
+				padding-left: 8px;
+				padding-right: 0;
 			}
 
 			.check {
@@ -135,9 +146,24 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				@apply --d2l-switch-toggle-label;
 			}
 
-			:host([label-right]) .toggle-label {
+			:host([label-right]) .toggle-label,
+			:host(:dir(rtl)) .toggle-label {
 				margin-right: 0;
 				margin-left: 10px;
+
+				@apply --d2l-switch-toggle-label-right;
+			}
+
+			:host(:dir(rtl)):host([label-right]) .toggle-label {
+				margin-right: 10px;
+				margin-left: 0;
+
+				@apply --d2l-switch-toggle-label;
+			}
+
+			:host(:dir(rtl))[label-right] .toggle-label {
+				margin-right: 10px;
+				margin-left: 0;
 
 				@apply --d2l-switch-toggle-label;
 			}
