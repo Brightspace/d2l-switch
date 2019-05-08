@@ -212,7 +212,7 @@ Polymer({
 	ready: function() {
 		this._boundOnTrack = this._ontrack.bind(this);
 		this.setAttribute('role', 'button');
-		this.setAttribute('aria-pressed', 'false');
+		this.setAttribute('aria-pressed', !!this.checked);
 		this.setAttribute('tabindex', 0);
 	},
 
