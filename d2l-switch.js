@@ -103,6 +103,11 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				pointer-events: none;
 			}
 
+			:host([label-right]) .toggle-label {
+				padding-left: 0;
+				padding-right: 8px;
+			}
+
 			.check {
 				position: absolute;
 				color: var(--d2l-color-olivine);
@@ -117,16 +122,31 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				align-items: center;
 			}
 
+			:host([label-right]) .container {
+				flex-direction: row-reverse;
+			}
+
 			.toggle-label {
 				font-size: 16px;
 				margin-right: 10px;
 				color: var(--d2l-color-ferrite);
 				font-weight: normal;
+
+				@apply --d2l-switch-toggle-label;
+			}
+
+			:host([label-right]) .toggle-label {
+				margin-right: 0;
+				margin-left: 10px;
+
+				@apply --d2l-switch-toggle-label;
 			}
 
 			:host([checked]) .toggle-label {
 				color: var(--d2l-color-olivine);
 				font-weight: bold;
+
+				@apply --d2l-switch-toggle-label-checked;
 			}
 		</style>
 
@@ -142,7 +162,7 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 		</div>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
@@ -152,6 +172,13 @@ Polymer({
 	behaviors: [
 		PaperCheckedElementBehavior
 	],
+
+	properties: {
+		labelRight: {
+			type: Boolean,
+			reflectToAttribute: true
+		}
+	},
 
 	ready: function() {
 		this._boundOnTrack = this._ontrack.bind(this);
