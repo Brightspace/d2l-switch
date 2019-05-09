@@ -23,6 +23,9 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 			:host {
 				display: inline-block;
 				position: relative;
+
+				--d2l-switch-padding: 8px;
+				--d2l-switch-margin: 10px;
 			}
 
 			:host([disabled]) {
@@ -99,8 +102,24 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				position: relative;
 				display: inline-block;
 				vertical-align: middle;
-				padding-left: 8px;
+				padding-left: var(--d2l-switch-padding);
 				pointer-events: none;
+			}
+
+			:host([label-right]) .toggle-label,
+			:host(:dir(rtl)) .toggle-label {
+				padding-left: 0;
+				padding-right: var(--d2l-switch-padding);
+			}
+
+			:host(:dir(rtl)):host([label-right]) .toggle-label {
+				padding-left: var(--d2l-switch-padding);
+				padding-right: 0;
+			}
+
+			:host(:dir(rtl))[label-right] .toggle-label {
+				padding-left: var(--d2l-switch-padding);
+				padding-right: 0;
 			}
 
 			.check {
@@ -117,16 +136,46 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				align-items: center;
 			}
 
+			:host([label-right]) .container {
+				flex-direction: row-reverse;
+			}
+
 			.toggle-label {
 				font-size: 16px;
-				margin-right: 10px;
+				margin-right: var(--d2l-switch-margin);
 				color: var(--d2l-color-ferrite);
 				font-weight: normal;
+
+				@apply --d2l-switch-toggle-label;
+			}
+
+			:host([label-right]) .toggle-label,
+			:host(:dir(rtl)) .toggle-label {
+				margin-right: 0;
+				margin-left: var(--d2l-switch-margin);
+
+				@apply --d2l-switch-toggle-label-right;
+			}
+
+			:host(:dir(rtl)):host([label-right]) .toggle-label {
+				margin-right: var(--d2l-switch-margin);
+				margin-left: 0;
+
+				@apply --d2l-switch-toggle-label;
+			}
+
+			:host(:dir(rtl))[label-right] .toggle-label {
+				margin-right: var(--d2l-switch-margin);
+				margin-left: 0;
+
+				@apply --d2l-switch-toggle-label;
 			}
 
 			:host([checked]) .toggle-label {
 				color: var(--d2l-color-olivine);
 				font-weight: bold;
+
+				@apply --d2l-switch-toggle-label-checked;
 			}
 		</style>
 
@@ -142,7 +191,7 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 		</div>
 	</template>
 
-	
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
@@ -153,10 +202,17 @@ Polymer({
 		PaperCheckedElementBehavior
 	],
 
+	properties: {
+		labelRight: {
+			type: Boolean,
+			reflectToAttribute: true
+		}
+	},
+
 	ready: function() {
 		this._boundOnTrack = this._ontrack.bind(this);
 		this.setAttribute('role', 'button');
-		this.setAttribute('aria-pressed', 'false');
+		this.setAttribute('aria-pressed', !!this.checked);
 		this.setAttribute('tabindex', 0);
 	},
 
