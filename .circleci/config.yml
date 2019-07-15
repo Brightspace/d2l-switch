@@ -19,28 +19,9 @@ jobs:
             - node_modules
           key: v1-package-{{ checksum "package.json" }}
 
-  publish:
-    docker:
-      - image: circleci/node:8.11-browsers
-
-    steps:
-      - checkout
-      - run: curl -ks -u$ARTIFACTORY_USER:$ARTIFACTORY_PASS "https://d2lartifacts.artifactoryonline.com/d2lartifacts/api/npm/npm-local/auth/d2l" -o .npmrc
-      - run: sudo npm install -g publish
-      - run: publish
-
 workflows:
   version: 2
 
-  build-and-publish:
+  build:
     jobs:
       - build
-      - publish:
-          context: ci-write
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-                - /^release.*/
