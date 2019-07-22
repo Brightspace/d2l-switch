@@ -14,8 +14,8 @@
     "start": "polymer serve",
     "test": "npm run lint"
   },
-  "author": "D2L",
-  "license": "UNLICENSED",
+  "author": "D2L Corporation",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.0",
     "@polymer/iron-demo-helpers": "^3.0.0",
