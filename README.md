@@ -6,6 +6,10 @@ Polymer switch (toggle button) element, based on paper-toggle-button.
 
 ![Switch on state](d2l-switch-on.png)
 
+## Quick start
+
+To run the demo run `npm install`, `npm start` and visit http://localhost:9998/components/d2l-switch/demo/
+
 ## Customization
 
 ```css
@@ -35,6 +39,10 @@ Puts the label on the right for LTR languages, and on the left for RTL languages
 <d2l-switch label-right>Toggle</d2l-switch>
 ```
 
-## Demo
+## Versioning
 
-To run the demo run `npm install`, `npm start` and visit http://localhost:9998/components/d2l-switch/demo/
+d2l-switch is maintained under [the Semantic Versioning guidelines](http://semver.org/).
+
+## Contributing
+
+Please read through our [contributing guidelines](CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
