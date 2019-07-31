@@ -25,27 +25,9 @@ jobs:
             - bower_components
           key: v1-bower-{{ checksum "bower.json" }}
 
-  publish:
-    docker:
-      - image: circleci/node:8.11-browsers
-
-    steps:
-      - checkout
-      - run: npm install artifactory-bower-publisher
-      - run: ./node_modules/.bin/artifactory-bower-publisher -u $ARTIFACTORY_USER -p $ARTIFACTORY_PASS -a https://d2lartifacts.artifactoryonline.com/d2lartifacts/simple/bower-local/polymer -n d2l-switch
-
 workflows:
   version: 2
 
-  build-and-publish:
+  build:
     jobs:
       - build
-      - publish:
-          context: ci-write
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - master
-                - /^release.*/
