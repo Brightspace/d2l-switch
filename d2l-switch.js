@@ -202,9 +202,9 @@ document.head.appendChild($_documentContainer.content);
 Polymer({
 	is: 'd2l-switch',
 
-	 behaviors: [
-	 	PaperCheckedElementBehavior
-	 ],
+	behaviors: [
+		PaperCheckedElementBehavior
+	],
 
 	properties: {
 		labelRight: {
