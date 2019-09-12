@@ -37,7 +37,7 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 			}
 
 			:host(:focus) .toggle-container {
-				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
+				box-shadow: 0px 0px 0px 2px var(--d2l-color-celestine);
 			}
 
 			.toggle-bar {
@@ -176,6 +176,10 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				font-weight: bold;
 
 				@apply --d2l-switch-toggle-label-checked;
+			}
+
+			:host paper-ripple {
+				display: none;
 			}
 		</style>
 
