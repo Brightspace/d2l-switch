@@ -33,11 +33,11 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 			}
 
 			:host(:focus) {
-				outline: none;
+				outline: none;	
 			}
 
 			:host(:focus) .toggle-container {
-				box-shadow: 0 0 0 4px rgba(0, 111, 191, 0.3);
+				box-shadow: 0px 0px 0px 2px var(--d2l-color-celestine);)
 			}
 
 			.toggle-bar {
@@ -145,7 +145,7 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				margin-right: var(--d2l-switch-margin);
 				color: var(--d2l-color-ferrite);
 				font-weight: normal;
-
+				
 				@apply --d2l-switch-toggle-label;
 			}
 
@@ -177,6 +177,10 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 
 				@apply --d2l-switch-toggle-label-checked;
 			}
+
+			:host paper-ripple {
+				display: none;
+			}
 		</style>
 
 		<div class="container">
@@ -198,9 +202,9 @@ document.head.appendChild($_documentContainer.content);
 Polymer({
 	is: 'd2l-switch',
 
-	behaviors: [
-		PaperCheckedElementBehavior
-	],
+	 behaviors: [
+	 	PaperCheckedElementBehavior
+	 ],
 
 	properties: {
 		labelRight: {
