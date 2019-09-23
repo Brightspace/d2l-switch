@@ -57,6 +57,17 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				border: 1px solid var(--d2l-color-titanius);
 			}
 
+			:host([compact]) .toggle-bar {
+				background-color: var(--d2l-color-mica);
+				box-shadow: none;
+				height: 20px;
+				top: calc(50% - 10px);
+			}
+
+			:host([compact]):host([checked])  .toggle-bar {
+				background-color: var(--d2l-color-mica);
+			}
+
 			.toggle-button {
 				position: absolute;
 				top: 0;
@@ -71,6 +82,17 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				box-shadow: inset 0 3px 0 0 rgba(0, 0, 0, 0.1);
 				border: solid 1px var(--d2l-color-pressicus);
 				box-sizing: border-box;
+			}
+
+			:host([compact]) .toggle-button {
+				background-color: var(--d2l-color-tungsten);
+				box-shadow: none;
+				height: 32px;
+				width: 32px;
+			}
+
+			:host([compact]):host([checked]) .toggle-button {
+				background-color: var(--d2l-color-primary-accent-action);
 			}
 
 			.toggle-button.dragging {
@@ -131,6 +153,10 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				height: 22px;
 			}
 
+			:host([compact]) .check {
+				display: none;
+			}
+
 			.container {
 				display: flex;
 				align-items: center;
@@ -176,6 +202,11 @@ $_documentContainer.innerHTML = `<dom-module id="d2l-switch">
 				font-weight: bold;
 
 				@apply --d2l-switch-toggle-label-checked;
+			}
+
+			:host([compact]):host([checked]) .toggle-label {
+				color: var(--d2l-color-ferrite);
+				font-weight: normal;
 			}
 
 			:host paper-ripple {
